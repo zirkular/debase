@@ -1,29 +1,44 @@
 <template>
-  <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-    <router-link class="navbar-brand col-md-3 col-lg-2 me-0 px-3" to="/">
-      <a :class="{active:this.$route.name === 'home'}" href="/">
-        <span data-feather="home"></span>
-        debase
-      </a>
-    </router-link>
+  <header class="navbar navbar-dark sticky-top centered-content">
+    <div class="col-lg">
+      <router-link class="project-name" to="/">
+        <a :class="{active:this.$route.name === 'home'}" href="/">
+          <span data-feather="home"></span>
+          <img src="https://fonts.gstatic.com/s/i/materialicons/menu/v11/24px.svg" />
+        </a>
+      </router-link>
 
-    <router-link class="project-name" to="/dashboard">
-      <a :class="{active:this.$route.name === 'dashboard'}" href="/dashboard">
-        <span data-feather="dashboard"></span>
-        {{ getActiveProject != null ? getActiveProject.name : "" }}
-      </a>
-    </router-link>
+      <router-link class="project-name" v-if="isUserConnected && getActiveProject" to="/dashboard">
+        <a :class="{active:this.$route.name === 'dashboard'}" href="/dashboard">
+          <span data-feather="dashboard"></span>
+          <img src="https://fonts.gstatic.com/s/i/materialicons/space_dashboard/v1/24px.svg" />
+        </a>
+      </router-link>
 
-    <!-- <div class="project-name">{{ getActiveProject != null ? getActiveProject.name : "" }}</div> -->
+      <router-link class="project-name" v-if="isUserConnected && getActiveProject" to="/chats" style="text-decoration: none">
+          <a :class="{active:this.$route.name === 'chats'}" href="/chats">
+            <span data-feather="file"></span>
+            <img src="https://fonts.gstatic.com/s/i/materialicons/mark_as_unread/v8/24px.svg" />
+          </a>
+      </router-link>
 
-    <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+      <router-link class="project-name" v-if="isUserConnected && getActiveProject" to="/settings" style="text-decoration: none">
+          <a :class="{active:this.$route.name === 'settings'}" href="/settings">
+            <span data-feather="file"></span>
+            <img src="https://fonts.gstatic.com/s/i/materialicons/settings/v14/24px.svg" />
+          </a>
+      </router-link>
+    </div>
 
-    <ul class="navbar-nav px-3">
+    <ul class="navbar-nav px-3 web3-connect">
       <li class="nav-item text-nowrap">
-        <a class="nav-link" href="#" v-if="!isUserConnected" @click="connectWeb3Modal">Connect your wallet</a>
-        <a class="nav-link" href="#" v-if="isUserConnected" @click="disconnectWeb3Modal">Disconnect {{getActiveAccount.substring(0, 7)}}...</a>
+        <a class="nav-link" href="#" v-if="!isUserConnected" @click="connectWeb3Modal">
+          <img src="https://fonts.gstatic.com/s/i/materialicons/login/v10/24px.svg" />
+        </a>
+        <a class="nav-link" href="#" v-if="isUserConnected" @click="disconnectWeb3Modal">
+          {{getActiveAccount.substring(0, 6)}}...
+          <img src="https://fonts.gstatic.com/s/i/materialicons/logout/v10/24px.svg" />
+        </a>
       </li>
     </ul>
 

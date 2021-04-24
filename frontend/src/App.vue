@@ -1,21 +1,21 @@
 <template>
   <div>
 
-    <Navbar />
+    <div class="bg-light">
+      <Navbar />
+    </div>
 
     <div class="container-fluid">
-      <div class="row">
 
-        <Sidebar />
+        <!-- <Sidebar /> -->
 
-        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+        <main class="centered-content">
 
           <keep-alive>
             <router-view />
           </keep-alive>
 
         </main>
-      </div>
     </div>
 
   </div>
@@ -23,13 +23,13 @@
 
 <script>
 import Navbar from './components/Navbar.vue';
-import Sidebar from './components/Sidebar.vue';
+// import Sidebar from './components/Sidebar.vue';
 
 export default {
   name: 'App',
   components: {
     Navbar,
-    Sidebar
+    // Sidebar
   }
 }
 </script>
