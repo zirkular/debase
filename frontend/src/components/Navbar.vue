@@ -1,6 +1,20 @@
 <template>
   <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">Hardhat Vue Starter</a>
+    <router-link class="navbar-brand col-md-3 col-lg-2 me-0 px-3" to="/">
+      <a :class="{active:this.$route.name === 'home'}" href="/">
+        <span data-feather="home"></span>
+        debase
+      </a>
+    </router-link>
+
+    <router-link class="project-name" to="/dashboard">
+      <a :class="{active:this.$route.name === 'dashboard'}" href="/dashboard">
+        <span data-feather="dashboard"></span>
+        {{ getActiveProject != null ? getActiveProject.name : "" }}
+      </a>
+    </router-link>
+
+    <!-- <div class="project-name">{{ getActiveProject != null ? getActiveProject.name : "" }}</div> -->
 
     <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -13,6 +27,8 @@
       </li>
     </ul>
 
+    
+
   </header>
 </template>
 
@@ -22,7 +38,8 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   name: "Navbar",
   computed: {
-    ...mapGetters("accounts", ["getActiveAccount", "isUserConnected", "getWeb3Modal"]),
+    ...mapGetters("accounts", ["getActiveAccount", "isUserConnected", "getWeb3Modal", "getChainName"]),
+    ...mapGetters("internal", ["getActiveProject"]),
   },
   created() {
     this.$store.dispatch("accounts/initWeb3Modal");

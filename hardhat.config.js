@@ -1,4 +1,5 @@
 require("@nomiclabs/hardhat-truffle5");
+require('@openzeppelin/hardhat-upgrades');
 require('dotenv').config();
 
 /**
@@ -10,7 +11,7 @@ module.exports = {
   networks: {
     hardhat: {},
     ganache: {
-      url: "http://127.0.0.1:7545/",
+      url: "http://127.0.0.1:8545/",
       saveDeployments: true
     }
     //goerli: {
@@ -27,7 +28,7 @@ module.exports = {
   },
 
   solidity: {
-    version: "0.7.3",
+    version: "0.8.3",
     settings: {
       optimizer: {
         enabled: true,

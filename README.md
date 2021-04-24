@@ -57,7 +57,20 @@ npm install
 cd frontend && npm install
 ```
 
+## Run local ganache testnet
+
+Run in a terminal:
+
+```
+npm install -g ganache-cli
+ganache-cli
+```
+
+You can then use on of the accounts that were created while spinning up the testnet.
+
 ## Run Vue app
+
+Run in a second terminal:
 
 ```bash
 cd frontend && npm run serve

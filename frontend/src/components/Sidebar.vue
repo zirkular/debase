@@ -3,21 +3,20 @@
     <div class="position-sticky pt-3">
 
       <ul class="nav flex-column">
-
-        <router-link to="/" style="text-decoration: none">
+        <router-link v-if="isUserConnected && getActiveProject" to="/chats" style="text-decoration: none">
           <li class="nav-item">
-            <a class="nav-link" :class="{active:this.$route.name === 'home'}" aria-current="page" href="/">
-              <span data-feather="home"></span>
-              Main page
+            <a class="nav-link" :class="{active:this.$route.name === 'chats'}" href="/chats">
+              <span data-feather="file"></span>
+              Chats
             </a>
           </li>
         </router-link>
 
-        <router-link v-if="isUserConnected" to="/set-value" style="text-decoration: none">
+        <router-link v-if="isUserConnected && getActiveProject" to="/settings" style="text-decoration: none">
           <li class="nav-item">
-            <a class="nav-link" :class="{active:this.$route.name === 'setValue'}" href="/set-value">
+            <a class="nav-link" :class="{active:this.$route.name === 'settings'}" href="/settings">
               <span data-feather="file"></span>
-              Set value
+              Settings
             </a>
           </li>
         </router-link>
@@ -30,14 +29,9 @@
             </a>
           </li>
         </router-link>
-
-        <div class="alert alert-warning m-3" v-if="showChainAlert" role="alert">
+        
+        <div class="alert alert-warning m-3" v-if="isUserConnected && showChainAlert" role="alert">
           <span v-if="getChainName">Your currently selected chain is <strong>{{getChainName}}</strong> (a testnet).</span>
-
-          <span v-if="!getChainName">
-            Please <a href="#" @click="connectWeb3Modal" class="alert-link">connect</a> with MetaMask
-            or some other Ethereum wallet.
-          </span>
         </div>
 
       </ul>
@@ -53,6 +47,7 @@ export default {
   name: "Sidebar",
   computed: {
     ...mapGetters("accounts", ["getChainName", "isUserConnected", "getWeb3Modal"]),
+    ...mapGetters("internal", ["getActiveProject"]),
 
     showChainAlert() {
       switch (this.getChainName) {
